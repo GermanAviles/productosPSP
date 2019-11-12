@@ -20,17 +20,34 @@ class ProductosProvider {
   Future getProductos() async {
     List products = [];
 
-    final productos = await databaseReference.collection('productos').getDocuments();
+    databaseReference.collection('productos').snapshots().listen( (data)  {
+      data.documents.forEach( (product) {
 
-    productos.documents.forEach( (product) {
+        productoModel.id          = product.documentID;
+        productoModel.valor       = product.data['valor'];
+        productoModel.titulo      = product.data['titulo'];
+        productoModel.disponible  = product.data['disponible'];
+        
+        products.add( productoModel.toJson() );
 
-      productoModel.id          = product.documentID;
-      productoModel.valor       = product.data['valor'];
-      productoModel.titulo      = product.data['titulo'];
-      productoModel.disponible  = product.data['disponible'];
-      
-      products.add( productoModel.toJson() );
+        // print('${product.documentID} - ${product.data}');
+      } );
+
+      // data.documentChanges.forEach( (doc) {
+      //   print('${doc.document.data} - ${doc.document.documentID}');
+      // });
     });
+    // final productos = await databaseReference.collection('productos').getDocuments();
+
+    // productos.documents.forEach( (product) {
+
+    //   productoModel.id          = product.documentID;
+    //   productoModel.valor       = product.data['valor'];
+    //   productoModel.titulo      = product.data['titulo'];
+    //   productoModel.disponible  = product.data['disponible'];
+      
+    //   products.add( productoModel.toJson() );
+    // });
 
     return products;
   }
