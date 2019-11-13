@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:productos/src/pages/home_page.dart';
 import 'package:productos/src/pages/producto_page.dart';
+import 'package:productos/src/providers/bloc_provider.dart';
+import 'package:productos/src/providers/productos_bloc.dart';
 
-void main() => runApp(MyApp());
+void main() {
+
+  return runApp(
+    BlocProvider<ProductosBloc>(
+      bloc: ProductosBloc(),
+      child: MyApp(),
+    )
+  );
+}
  
 class MyApp extends StatelessWidget {
   @override

@@ -117,8 +117,8 @@ class _ProductoPageState extends State<ProductoPage> {
     print('disponible: ${producto.disponible}' );
 
     
-    // productoProvider.createProducto(producto);
-    productoProvider.getProductos();
+    productoProvider.crearProducto(producto);
+    // productoProvider.cargarProductos();
     
   }
 }

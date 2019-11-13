@@ -1,17 +1,28 @@
 
-import 'package:productos/src/models/producto_model.dart';
+// import 'package:productos/src/models/producto_model.dart';
+import 'package:productos/src/providers/bloc_provider.dart';
 import 'package:rxdart/subjects.dart';
 
-class ProductosBloc {
+class ProductosBloc implements BlocBase {
 
-  final _productosTotales = BehaviorSubject< List<ProductoModel> >();
+  final _productosTotales = BehaviorSubject<List>();
 
-  Stream< List<ProductoModel> > get productoStream => _productosTotales.stream;
+  // STREAMS
+  Stream<List> get productoStream => _productosTotales.stream;
 
-  Function( List<ProductoModel> ) get productosSink => _productosTotales.sink.add;
+  // SINKS
+  Function(List) get productosSink => _productosTotales.sink.add;
+
+  List get productosFinales => _productosTotales.value;
+
 
   void dispose() {
     _productosTotales.close();
   }
+
+
+  // void clear(){
+  //   _productosTotales.sink.add([]);
+  // }
 
 }
